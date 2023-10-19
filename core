@@ -109,6 +109,10 @@ install() {
     os::brew install mongosh
     ;;
   ubuntu)
+    # bug: E: gnupg, gnupg2 and gnupg1 do not seem to be installed, but one of them is required for this operation
+    # stackoverflow: https://stackoverflow.com/questions/50757647/e-gnupg-gnupg2-and-gnupg1-do-not-seem-to-be-installed-but-one-of-them-is-requ
+    sudo apt install -y gnupg2
+
     os::wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
     sudo apt update
